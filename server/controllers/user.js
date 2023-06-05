@@ -7,11 +7,10 @@ dotenv.config();
 const { sign, verify } = jwt;
 
 export const registerUser = async (req, res) => {
-  const { fullname, email, password } = req.body;
+  const { email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const newUser = new Users({
-      fullname: fullname,
       email: email,
       password: hashedPassword,
     });
