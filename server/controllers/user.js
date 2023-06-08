@@ -7,11 +7,17 @@ dotenv.config();
 const { sign, verify } = jwt;
 
 export const registerUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
+    const existingUser = await Users.findOne({ username });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ message: "A user with the same email already exists" });
+    }
     const newUser = new Users({
-      email: email,
+      username,
       password: hashedPassword,
     });
     const result = await newUser.save();
@@ -23,9 +29,9 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   try {
-    const user = await Users.findOne({ email: email });
+    const user = await Users.findOne({ username });
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }

@@ -1,20 +1,20 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const LogInForm = () => {
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+const SignUpForm = () => {
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
-      let res = (await axios.post("http://localhost:8080/login", values)).data;
+      let res = await axios.post("http://localhost:8080/signup", values);
       console.log(res);
+      console.log(res.statusText);
+      if (res.statusText == "OK") {
+        navigate("/", { replace: true });
+      }
     } catch (error) {
-      setError(true);
-      setErrorMessage(error.response.data.message);
-      console.log(error.response.data.message);
+      console.log(error);
     }
   };
   return (
@@ -36,12 +36,10 @@ const LogInForm = () => {
         ]}
       >
         <Input
-          onChange={() => setError(false)}
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Username"
         />
       </Form.Item>
-      {error ? <div>{errorMessage}</div> : null}
       <Form.Item
         name="password"
         rules={[
@@ -59,11 +57,11 @@ const LogInForm = () => {
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
+          Register now!
         </Button>
-        Or <Link to="/register">register now!</Link>
+        Or <Link to="/">log in!</Link>
       </Form.Item>
     </Form>
   );
 };
-export default LogInForm;
+export default SignUpForm;
