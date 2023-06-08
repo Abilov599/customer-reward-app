@@ -10,7 +10,6 @@ const LogInForm = () => {
   const onFinish = async (values) => {
     try {
       let res = (await axios.post("http://localhost:8080/login", values)).data;
-      console.log(res);
     } catch (error) {
       setError(true);
       setErrorMessage(error.response.data.message);
