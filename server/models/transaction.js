@@ -4,6 +4,7 @@ const transactionSchema = new Schema(
   {
     customerId: { type: String, required: true },
     amount: { type: Number, required: true },
+    totalPoints: { type: Number, required: true },
   },
   { timestamps: true }
 );

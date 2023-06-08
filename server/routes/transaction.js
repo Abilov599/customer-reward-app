@@ -1,7 +1,7 @@
 import express from "express";
-import { calculatePoints } from "../controllers/transactions.js";
+import { transaction } from "../controllers/transactions.js";
 const router = express.Router();
 
-router.post("/calculate-reward-points", calculatePoints);
+router.post("/purchase/:id", transaction);
 
 export { router as TransactionRoute };

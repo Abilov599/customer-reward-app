@@ -1,8 +1,9 @@
 import { Transaction } from "./../models/transaction.js";
 
-export const calculatePoints = async (req, res) => {
+export const transaction = async (req, res) => {
   try {
-    const { customerId, transactions } = req.body;
+    let { customerId, transactions } = req.body;
+    let { productId } = req.params;
 
     let totalPoints = 0;
     const pointsPerDollarOver100 = 2;
@@ -29,6 +30,7 @@ export const calculatePoints = async (req, res) => {
     const newTransaction = new Transaction({
       customerId,
       amount: totalPoints,
+      totalPoints: totalPoints,
     });
     await newTransaction.save();
 
