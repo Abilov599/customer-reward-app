@@ -14,7 +14,6 @@ const LogInForm = () => {
     } catch (error) {
       setError(true);
       setErrorMessage(error.response.data.message);
-      console.log(error.response.data.message);
     }
   };
   return (

@@ -8,13 +8,11 @@ const SignUpForm = () => {
   const onFinish = async (values) => {
     try {
       let res = await axios.post("http://localhost:8080/signup", values);
-      console.log(res);
-      console.log(res.statusText);
       if (res.statusText == "OK") {
         navigate("/", { replace: true });
       }
     } catch (error) {
-      console.log(error);
+      throw error
     }
   };
   return (
