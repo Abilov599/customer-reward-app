@@ -41,7 +41,8 @@ const Home = () => {
     <main>
       <section>
         <div className="container">
-          {user.username}
+          <div>Username: {user.username}</div>
+          <div>Total points: {user.points}</div>
           <button onClick={() => logout()}>log out</button>
         </div>
       </section>
