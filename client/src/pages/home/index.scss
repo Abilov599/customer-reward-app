@@ -1,0 +1,14 @@
+main {
+  section {
+    .container {
+    }
+  }
+  .products {
+    .container {
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
