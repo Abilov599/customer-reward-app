@@ -6,6 +6,7 @@ const SignUp = () => {
     <main>
       <section>
         <div className="container">
+          <h1>Sign up, Please</h1>
           <SignUpForm />
         </div>
       </section>
