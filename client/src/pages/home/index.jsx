@@ -10,6 +10,7 @@ const Home = () => {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [points, setPoints] = useState(null);
   const navigate = useNavigate();
   const logout = async () => {
     let res = await axios.get("http://localhost:8080/logout", {
@@ -44,9 +45,20 @@ const Home = () => {
     } catch (error) {}
   }
 
+  async function calcPoints(id) {
+    try {
+      let res = await axios.post("http://localhost:8080/calcTransactions", {
+        userId: id,
+      });
+      setPoints(res.data);
+    } catch (error) {}
+  }
+
   useEffect(() => {
     getAllProducts();
   }, []);
+
+  console.log(user);
 
   return (
     <main>
@@ -54,6 +66,20 @@ const Home = () => {
         <div className="container">
           <div>Username: {user.username}</div>
           <div>Total points: {user.points}</div>
+          {points ? (
+            <div>
+              Points for 3 month{" "}
+              {points.transactions.map((trans, i) => {
+                return (
+                  <a key={i} href="">
+                    {trans.totalPoints},{" "}
+                  </a>
+                );
+              })}
+            </div>
+          ) : null}
+          <button onClick={() => calcPoints(user._id)}>Calculate Points</button>
+          <hr />
           <button onClick={() => logout()}>log out</button>
         </div>
       </section>

@@ -1,7 +1,11 @@
 import express from "express";
-import { transaction } from "../controllers/transaction.js";
+import {
+  calcPointsForThreeMonth,
+  transaction,
+} from "../controllers/transaction.js";
 const router = express.Router();
 
 router.post("/purchase", transaction);
+router.post("/calcTransactions", calcPointsForThreeMonth);
 
 export { router as TransactionRoute };

@@ -37,3 +37,23 @@ export const transaction = async (req, res) => {
     res.status(500).json({ error: "Something went wrong" });
   }
 };
+
+export const calcPointsForThreeMonth = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    // Calculate the date three months ago from the current date
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+    // Find all transactions for the user within the last 3 months
+    const transactions = await Transaction.find({
+      customerId: userId,
+      createdAt: { $gte: threeMonthsAgo.toISOString() },
+    });
+    res.status(200).json({ transactions });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
