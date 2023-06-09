@@ -11,7 +11,6 @@ const Home = () => {
     let res = await axios.get("http://localhost:8080/logout", {
       withCredentials: true,
     });
-    console.log(res);
     if (res.data.message === "SUCCESS") {
       setUser(null);
       navigate("/");
