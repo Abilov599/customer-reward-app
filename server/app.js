@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { UserRoute } from "./routes/user.js";
@@ -8,7 +9,9 @@ import { TransactionRoute } from "./routes/transaction.js";
 
 const app = express();
 dotenv.config();
+app.use(cookieParser());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 mongoose.set("strictQuery", false);
 //Routes

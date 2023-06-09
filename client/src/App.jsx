@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<SiteRoot />}>
-          <Route index path="/" element={<SignIn />} />
-          <Route path="register" element={<SignUp />} />
-          <Route path="products" element={<Home />} />
+        <Route path="/" element={<SignIn />} />
+        <Route path="register" element={<SignUp />} />
+        <Route path="/products" element={<SiteRoot />}>
+          <Route index path="/products" element={<Home />} />
         </Route>
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

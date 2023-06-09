@@ -2,14 +2,23 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useAtom } from "jotai";
+import { userData } from "../../atoms.js";
+import { Link, useNavigate } from "react-router-dom";
 
 const LogInForm = () => {
+  const navigate = useNavigate();
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const onFinish = async (values) => {
     try {
-      let res = (await axios.post("http://localhost:8080/login", values)).data;
+      let res = await axios.post("http://localhost:8080/login", values, {
+        withCredentials: true,
+      });
+      if (res.data.message === "SUCCESS") {
+        navigate("/products", { replace: true });
+      }
     } catch (error) {
       setError(true);
       setErrorMessage(error.response.data.message);
