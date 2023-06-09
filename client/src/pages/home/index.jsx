@@ -33,6 +33,17 @@ const Home = () => {
     }
   }
 
+  async function buyPhone(id, price) {
+    try {
+      let res = await axios.post("http://localhost:8080/purchase", {
+        productId: id,
+        price,
+        userId: user._id,
+      });
+      window.location.reload();
+    } catch (error) {}
+  }
+
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -52,15 +63,17 @@ const Home = () => {
             {isLoading
               ? "LOADING..."
               : !error
-              ? products.map((prod, i) => {
+              ? products.map((prod) => {
                   return (
-                    <div className="card" key={i}>
+                    <div className="card" key={prod._id}>
                       <div>
                         <img width="250px" src={prod.image} alt="" />
                       </div>
                       <div>{prod.productName}</div>
                       <div>{prod.price} $</div>
-                      <button>Buy</button>
+                      <button onClick={() => buyPhone(prod._id, prod.price)}>
+                        Buy
+                      </button>
                     </div>
                   );
                 })
